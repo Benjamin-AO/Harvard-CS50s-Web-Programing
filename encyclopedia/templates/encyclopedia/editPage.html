@@ -8,7 +8,7 @@
 {% block body %}
 
     
-    <form action="{% url 'wiki:save_edit' %}" method="post" novalidate>
+    <form class="edit" action="{% url 'wiki:save_edit' %}" method="post">
         {% csrf_token %}
         
         <input type="hidden" name="entryTitle" value="{{ entryTitle }}"> <br>
@@ -16,8 +16,21 @@
         <p><h4>Content</h4></p> <br>
         <textarea name="entryContent" id="" >{{entryContent}}</textarea> <br>
         
-
-        <input type="submit" value="Save" class="btn btn-primary">
+        <div>
+            <span><input type="submit" value="Save" class="btn btn-outline-primary"></span>
+            <span>
+                <form class="cancel" action="{% url 'wiki:cancel_edit' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="entryTitle" value="{{ entryTitle }}">
+                    <input type="submit" value="Cancel" class="btn btn-outline-primary">   
+                </form>
+            </span>
+            
+        </div>
+        
+        
     </form>
+
+    
 
 {% endblock %}

@@ -121,5 +121,9 @@ def save_edit(request):
         return entry(request, title)
         
 
+def cancel_edit(request):
+    if request.method == "POST":
+        title = request.POST["entryTitle"]
+        return entry(request, title)
 
-    
+
