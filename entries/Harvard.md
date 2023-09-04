@@ -1,1 +1,0 @@
-Harvard is a premier ivy-league academic institution located in the United States of America.

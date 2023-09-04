@@ -1,5 +1,0 @@
-# joy
-
- 
-kdfgfk cokdkdd
-skdkdkdkdk

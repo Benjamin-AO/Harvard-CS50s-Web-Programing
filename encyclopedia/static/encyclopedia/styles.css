@@ -13,8 +13,8 @@ h1 {
 }
 
 textarea {
-    height: 50vh;
-    width: 50%;
+    height: 25em;
+    width: 60%;
 }
 
 span{
@@ -41,13 +41,8 @@ span{
     margin-top: 5px;
 }
 
-.moderate{
-    width: auto;
-    display: inline;
-}
-
-
-#titlebox {
-    border: 1px solid #000000;
-    width: fit-content;
+.container{
+    display: flexbox;
+    flex-wrap: wrap;
+    width: 20px;
 }
