@@ -12,8 +12,8 @@
         {% csrf_token %}
         
         <input type="hidden" name="entryTitle" value="{{ entryTitle }}"> <br>
-        <div><b>Title</b>: {{ entryTitle }}</div> <br>
-        <p><h4>Content</h4></p> <br>
+        <b>Title: {{ entryTitle }}</b> <br>
+        <p><h5>Content</h5></p> <br>
         <textarea name="entryContent" id="" >{{entryContent}}</textarea> <br>
         
         <div>

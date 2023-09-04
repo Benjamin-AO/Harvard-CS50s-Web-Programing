@@ -12,4 +12,5 @@ urlpatterns = [
     path("edit_page", views.edit_page, name="edit_page"),
     path("save_edit", views.save_edit, name="save_edit"),
     path("cancel_edit", views.cancel_edit, name="cancel_edit"),
+    path("random_page", views.random_page, name="random_page"),
 ]

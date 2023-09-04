@@ -1,3 +1,4 @@
+import random
 import markdownify
 from markdown2 import Markdown
 from django import forms
@@ -9,8 +10,8 @@ from . import util
 
 
 class NewPageForm(forms.Form):
-    newPage_title = forms.CharField(widget= forms.TextInput(attrs={'placeholder':'New Entry Title'}))
-    newPageContent_Html = forms.CharField(widget= forms.Textarea(attrs={'class':'textarea', 'rows':3, 'placeholder':'Enter the contents for this new page here'}))
+    newPage_title = forms.CharField(widget= forms.TextInput(attrs={'placeholder':'New Entry Title'}), label=False)
+    newPageContent_Html = forms.CharField(widget= forms.Textarea(attrs={'class':'textarea', 'placeholder':'Enter the contents for this new page here'}), label=False)
 
 
 
@@ -59,13 +60,12 @@ def search(request):
                         "entryTitle": existing_entry,
                         "entryResource": html_content
                     })
+        
         else:
             querySubString = []
-            
             for existing_entry in entry_list:
                 if query_value.lower() in existing_entry.lower():
                     querySubString.append(existing_entry)
-
             return render(request, "encyclopedia/search.html", {
                 "similarResource": querySubString,
             })
@@ -73,12 +73,11 @@ def search(request):
 
 
 def add_newPage(request):
-
+    ''' this function will create a new wiki page based on request received from newPage.html'''
     if request.method == "POST":
         form = NewPageForm(request.POST)
         if form.is_valid():
             newPage_title = form.cleaned_data["newPage_title"]
-
             newPageContent_Html = form.cleaned_data["newPageContent_Html"]
             #newPageContent_Html_with_heading = f"<h1>{newPage_title}</h1> \n{newPageContent_Html}"  
             newPageContent_md = markdownify.markdownify(newPageContent_Html, heading_style="ATX")
@@ -97,10 +96,6 @@ def add_newPage(request):
     return render(request, "encyclopedia/newPage.html", {
         "form": NewPageForm(),
     })
-
-
-
-
 
 
 def edit_page(request):
@@ -127,3 +122,10 @@ def cancel_edit(request):
         return entry(request, title)
 
 
+def random_page(request):
+    title_collections = []
+    title_list = util.list_entries()
+    for title in title_list:
+        title_collections.append(title)
+    random_title = random.choice(title_collections)
+    return entry(request, random_title)

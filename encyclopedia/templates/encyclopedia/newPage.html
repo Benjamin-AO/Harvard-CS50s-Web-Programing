@@ -1,7 +1,7 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    New Page
+    Add New Page
 {% endblock %}
 
 {% block body %}
@@ -9,8 +9,10 @@
     <form action="{% url 'wiki:new_page' %}" method="POST">
         {% csrf_token %}
         
-        {{ form }} <br>
-        <input class="btn btn-primary" type="submit">
+        {{ form.as_p }} <br>
+
+        <input class="btn btn-outline-primary" type="submit">
+        <a class="btn btn-outline-primary" href="{% url 'wiki:index' %}">Cancel</a>
     </form>
 
 {% endblock %}
