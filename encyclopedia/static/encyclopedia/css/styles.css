@@ -57,11 +57,19 @@ span{
     margin-top: 30px; 
     display: flex; 
     flex-wrap: wrap; 
-    width: 297px; 
     border: 1px solid #cdcdcd;
+    margin-right: 0;
+    align-content: center ;
+}
+
+.container-fluid{
+    width: 100%;
 }
 
 .title{
     color: #007bff;
     margin-left: 5px;
+    position: relative;
+    z-index: 1;
 }
+

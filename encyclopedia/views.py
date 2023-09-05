@@ -80,7 +80,7 @@ def add_newPage(request):
         if form.is_valid():
             newPage_title = form.cleaned_data["newPage_title"]
             newPageContent_Html = form.cleaned_data["newPageContent_Html"]
-            #newPageContent_Html_with_heading = f"<h1>{newPage_title}</h1> \n{newPageContent_Html}"  
+            #newPageContent_Html_with_heading = f"<h1>{newPage_title}</h1> \n{newPageContent_Html}" # will add title header to mark down.
             newPageContent_md = markdownify.markdownify(newPageContent_Html, heading_style="ATX")
             
             all_entries = util.list_entries()
