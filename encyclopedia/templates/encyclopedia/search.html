@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block body %}
+
     <h1>Search Results</h1>
-
- 
-
+    <p>Your search query <b><em>"{{ search_query }}"</em></b> returned the following result(s)...</p>
     <ul>
         {% for entry in similarResource %}
             <li><a href="{% url 'wiki:entry' title=entry %}" >{{ entry }}</a></li>

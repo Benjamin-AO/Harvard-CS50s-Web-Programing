@@ -11,7 +11,7 @@ from . import util
 
 class NewPageForm(forms.Form):
     newPage_title = forms.CharField(widget= forms.TextInput(attrs={'placeholder':'New Entry Title', 'maxlength':50}), label=False)
-    newPageContent_Html = forms.CharField(widget= forms.Textarea(attrs={'class':'textarea', 'placeholder':'Enter the contents for this new page here', 'rows':50, 'cols':40, 'style':'height:25em; width:60%'}), label=False)
+    newPageContent_Html = forms.CharField(widget= forms.Textarea(attrs={'class':'textarea', 'placeholder':'Enter the contents for this new page here', 'rows':50, 'cols':40, }), label=False)
 
 
 def convert_md_to_html(title):
@@ -46,34 +46,32 @@ def entry(request, title):
 def search(request):
     entry_list = util.list_entries()
     if request.method == "POST":
-        query_value = request.POST['q']
-        html_content = convert_md_to_html(query_value)
+        search_query = request.POST['q']
+        html_content = convert_md_to_html(search_query)
         if html_content is not None:
             for existing_entry in entry_list:
-                if query_value.lower() in existing_entry.lower():
+                if search_query.lower() in existing_entry.lower():
                     return render(request, "encyclopedia/entry.html", {
                         "entryTitle": existing_entry,
-                        "entryResource": html_content
+                        "entryResource": html_content   
                     })
         else:
             querySubString = []
             for existing_entry in entry_list:
-                if query_value.lower() in existing_entry.lower():
+                if search_query.lower() in existing_entry.lower():
                     querySubString.append(existing_entry)
-                    return render(request, "encyclopedia/search.html", {
+
+            if len(querySubString) > 0:
+                return render(request, "encyclopedia/search.html", {
+                    "search_query": search_query,
                     "similarResource": querySubString,
-                })
+            })
 
-                else:
-                    return render(request, "encyclopedia/emptySearch.html", {
-                    "search_response": query_value.title()
-                })
+            else:
+                return render(request, "encyclopedia/emptySearch.html", {
+                "search_response": search_query.title()
+            })
 
-
-            # return render(request, "encyclopedia/search.html", {
-            #     "similarResource": querySubString,
-            # })
-            
 
 def add_newPage(request):
     ''' this function will create a new wiki page based on request received from newPage.html'''
@@ -92,7 +90,9 @@ def add_newPage(request):
                         "error_code": "403 Error",
                         "error_message": f'''Oops! This title: "{newPage_title}" already exists.'''
                     })
-          
+                else:
+                    page_maker = util.save_entry(newPage_title, newPageContent_md)
+                    return entry(request, newPage_title) 
 
     return render(request, "encyclopedia/newPage.html", {
         "form": NewPageForm(),

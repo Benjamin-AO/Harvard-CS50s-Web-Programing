@@ -32,6 +32,12 @@
                 <div>
                     <a href="{% url 'wiki:random_page' %}">Random Page</a>
                 </div>
+
+                <div class="mode_bar" >
+                    {% block mode %}
+                    {% endblock %}
+                </div>
+
                 {% block nav %}
                 {% endblock %}
             </div>

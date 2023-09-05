@@ -46,3 +46,22 @@ span{
     flex-wrap: wrap;
     width: 20px;
 }
+
+.read{
+    color: red;
+    
+}
+
+.mode_bar{
+    background-color: #dddddd; 
+    margin-top: 30px; 
+    display: flex; 
+    flex-wrap: wrap; 
+    width: 297px; 
+    border: 1px solid #cdcdcd;
+}
+
+.title{
+    color: #007bff;
+    margin-left: 5px;
+}

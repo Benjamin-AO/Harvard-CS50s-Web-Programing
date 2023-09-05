@@ -4,6 +4,15 @@
     Wiki | {{ entryTitle }}
 {% endblock %}
 
+{% block mode %}
+    <div >
+        <b>Edit Mode:</b>
+        <ul class="title">
+            <li><b>{{ entryTitle }}</b></li>
+        </ul>
+    </div>
+{% endblock %}
+
 
 {% block body %}
 
@@ -11,9 +20,9 @@
     <form class="edit" action="{% url 'wiki:save_edit' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="entryTitle" value="{{ entryTitle }}"> <br>
-        <b><h5>Title: <span style="color: #007bff; margin-left: 10px;">{{ entryTitle }}</span></h5></b> <br>
+        <b><h5>Title: <span class="title">{{ entryTitle }}</span></h5></b> <br>
         <p><h5>Content:</h5></p> <br>
-        <textarea name="entryContent" id="" rows=50, cols=40, style="height:25em"; >{{entryContent}}</textarea> <br>
+        <textarea name="entryContent" id="" rows=50, cols=40 >{{entryContent}}</textarea> <br>
         
         <div>
             <span><input type="submit" value="Save" class="btn btn-outline-primary"></span>
