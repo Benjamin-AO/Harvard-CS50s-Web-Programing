@@ -92,9 +92,7 @@ def add_newPage(request):
                         "error_code": "403 Error",
                         "error_message": f'''Oops! This title: "{newPage_title}" already exists.'''
                     })
-                else:
-                    page_maker = util.save_entry(newPage_title, newPageContent_md)
-                    return entry(request, newPage_title) 
+          
 
     return render(request, "encyclopedia/newPage.html", {
         "form": NewPageForm(),
