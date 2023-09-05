@@ -84,16 +84,20 @@ def add_newPage(request):
             newPageContent_md = markdownify.markdownify(newPageContent_Html, heading_style="ATX")
             
             all_entries = util.list_entries()
+            all_entries_upper = []
             for existing_title in all_entries: 
-                if newPage_title.upper() == existing_title.upper():
-                    return render(request,"encyclopedia/alreadyExists.html", {
-                        "error_code": "403 Error",
-                        "error_message": f'''Oops! This title: "{newPage_title}" already exists.'''
-                    })
-                else:
-                    page_maker = util.save_entry(newPage_title, newPageContent_md)
-                    return entry(request, newPage_title) 
+                all_entries_upper.append(existing_title.upper())
 
+            new_page_title_upper = newPage_title.upper()
+
+            if  new_page_title_upper not in all_entries_upper:
+                page_maker = util.save_entry(newPage_title, newPageContent_md)
+                return entry(request, newPage_title)     
+            else:
+                return render(request,"encyclopedia/alreadyExists.html", {
+                    "error_code": "403 Error",
+                    "newPage_title": newPage_title
+                })
     return render(request, "encyclopedia/newPage.html", {
         "form": NewPageForm(),
     })
